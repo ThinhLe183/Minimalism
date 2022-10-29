@@ -27,7 +27,7 @@ export default function SizeBox({ initSize, product }) {
       value={selectedSize}
       onChange={async (e) => await handleSizeChange(e)}
       as="div"
-      className={"relative w-12 ui-open:w-20 transition-all duration-300"}
+      className={"relative w-20 transition-all duration-300"}
     >
       <Listbox.Button className="w-full ring-1 ring-primary ui-open:ring-0  py-1 pl-4 pr-1 rounded-xl text-start flex justify-between items-center transition-all ui-open:rounded-b-none ui-open:bg-[#e3e3e3]">
         <div>{selectedSize}</div>
