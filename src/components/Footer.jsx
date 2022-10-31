@@ -27,7 +27,7 @@ export default function Footer() {
       </footer>
       <footer className="footer px-10 py-4  ">
         <div className="items-center grid-flow-col">
-          <p>Copyright © 2022 - All right reserved</p>
+          <p>Copyright © 2022 - All right reserved - Thinh Le</p>
         </div>
         <div className="md:place-self-center md:justify-self-end">
           <div className="grid grid-flow-col gap-4">

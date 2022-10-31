@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import BackToTopBtn from "../components/BackToTopBtn";
 import { ToastContainer } from "react-toastify";
-import { Navigate } from "react-router-dom";
 
 import { useCartStore, useUserStore } from "../state_management/store";
 import { Outlet } from "react-router-dom";
@@ -23,6 +22,7 @@ const contextClass = {
 export default function Root() {
   const { user, setUser } = useUserStore((state) => state);
   const { setCart } = useCartStore((state) => state);
+  console.log(auth);
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -38,8 +38,6 @@ export default function Root() {
       };
     });
   }, [setUser, setCart]);
-
-  if (!user) return <Navigate to={"/login"} />;
 
   if (typeof user === "undefined") {
     return <Loading />;

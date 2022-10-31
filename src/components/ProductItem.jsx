@@ -1,20 +1,26 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Transition } from "@headlessui/react";
 
 import { addProduct, updateProduct } from "../action/cart";
 import { useCartStore, useUserStore } from "../state_management/store";
 import { toastAdded, toastUpdated } from "../action/toastSnip";
+import LoadingLayer from "./LoadingLayer";
 
 export default function ProductItem({ product }) {
   const { user } = useUserStore((state) => state);
   const { cart, setCart, updateProductInCart } = useCartStore((state) => state);
   const [isLoading, setIsLoading] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isNeedLogin, setIsNeedLogin] = useState(false);
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
   const handleAddToCart = async (size) => {
+    if (!user) {
+      setIsNeedLogin(true);
+      return;
+    }
     try {
       setIsLoading(true);
       const data = {
@@ -34,22 +40,24 @@ export default function ProductItem({ product }) {
         });
         toastUpdated();
       } else {
-        const addedProduct = await addProduct(user, data);
+        const addedProduct = await addProduct(user.uid, data);
         setCart([addedProduct, ...cart]);
         toastAdded(data);
       }
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
+  if (isNeedLogin) return <Navigate to={"/login"} />;
   return (
     <div
       className="card"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <figure className="relative rounded-3xl min-h-[20rem] sm:min-h-[26rem] bg-[#F2F2F2]">
+      <figure className="relative rounded-3xl min-h-[20rem] sm:min-h-[26rem] bg-[#F2F2F2] ">
+        {isLoading && <LoadingLayer extendClass={"fill-red-600"} size={12} />}
         <img src={product.imageSrc} alt={product.imageAlt} />
         <Transition
           show={isHovering}

@@ -1,27 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsCart } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import { useCartStore, useUserStore } from "../state_management/store";
 import { deleteProduct } from "../action/cart";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { toastAdded } from "../action/toastSnip";
+import { toastRemoved } from "../action/toastSnip";
+import LoadingLayer from "./LoadingLayer";
 export default function MiniCart() {
   const { cart, removeProductFromCart } = useCartStore((state) => state);
   const { user } = useUserStore((state) => state);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleRemoveProduct = async (productId) => {
+    setIsLoading(true);
     try {
       await deleteProduct(user.uid, productId);
       removeProductFromCart(productId);
-      toast(() => (
-        <span className="text-sm text-black font-bold">
-          Đã xóa sản phẩm khỏi giỏ hàng
-        </span>
-      ));
+      toastRemoved();
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
   return (
     <div className="dropdown dropdown-hover dropdown-end">
@@ -40,11 +38,12 @@ export default function MiniCart() {
       </div>
       <div
         tabIndex={0}
-        className="pt-5 px-2 pb-5 card card-compact dropdown-content rounded-2xl translate-x-5"
+        className=" pt-5 px-2 pb-5 card card-compact dropdown-content rounded-3xl translate-x-5"
       >
-        <div className="card-body rounded-2xl bg-base-100 w-[24rem] p-15 shadow-lg ">
+        <div className="relative card-body rounded-3xl bg-base-100 w-[24rem] p-15 shadow-lg ">
           {cart.length > 0 ? (
             <>
+              {isLoading && <LoadingLayer size={4} />}
               <div className="flex justify-between items-center mb-3">
                 <div className="">{cart.length} sản phẩm</div>
                 <Link to={"/cart"} className=" text-blue-700">
