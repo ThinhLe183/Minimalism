@@ -4,7 +4,7 @@ import { Listbox } from "@headlessui/react";
 import { updateProduct } from "../action/cart";
 import { useCartStore, useUserStore } from "../state_management/store";
 import { RiArrowDropRightLine } from "react-icons/ri";
-import { toast } from "react-toastify";
+import { toastUpdated } from "../action/toastSnip";
 export default function SizeBox({ initSize, product }) {
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const { user } = useUserStore((state) => state);
@@ -16,18 +16,14 @@ export default function SizeBox({ initSize, product }) {
     setSelectedSize(e);
     await updateProduct(user.uid, product, { size: e });
     updateProductInCart(product.id, { size: e });
-    toast(() => (
-      <span className="text-sm text-black font-bold">
-        Đã cập nhật giỏ hàng!
-      </span>
-    ));
+    toastUpdated();
   };
   return (
     <Listbox
       value={selectedSize}
       onChange={async (e) => await handleSizeChange(e)}
       as="div"
-      className={"relative w-20 transition-all duration-300"}
+      className={"relative w-16 ui-open:w-20 transition-all duration-300"}
     >
       <Listbox.Button className="w-full ring-1 ring-primary ui-open:ring-0  py-1 pl-4 pr-1 rounded-xl text-start flex justify-between items-center transition-all ui-open:rounded-b-none ui-open:bg-[#e3e3e3]">
         <div>{selectedSize}</div>

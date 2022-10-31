@@ -50,7 +50,6 @@ export default function Root() {
       <ToastContainer
         autoClose={1500}
         hideProgressBar={true}
-        limit={1}
         toastClassName={({ type }) =>
           contextClass[type || "default"] +
           " relative flex p-3 mt-3 min-h-20 rounded-2xl justify-between overflow-hidden cursor-pointer shadow-xl"

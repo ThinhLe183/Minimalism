@@ -1,0 +1,33 @@
+[debug] [2022-10-31T07:01:22.654Z] ----------------------------------------------------------------------
+[debug] [2022-10-31T07:01:22.657Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2022-10-31T07:01:22.657Z] CLI Version:   11.15.0
+[debug] [2022-10-31T07:01:22.657Z] Platform:      win32
+[debug] [2022-10-31T07:01:22.657Z] Node Version:  v16.17.0
+[debug] [2022-10-31T07:01:22.659Z] Time:          Mon Oct 31 2022 14:01:22 GMT+0700 (Indochina Time)
+[debug] [2022-10-31T07:01:22.659Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-10-31T07:01:22.776Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-10-31T07:01:22.777Z] > authorizing via signed-in user (leducthinh183@gmail.com)
+[debug] [2022-10-31T07:01:22.777Z] [iam] checking project minimalism-646db for permissions ["firebase.projects.get"]
+[debug] [2022-10-31T07:01:22.779Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/minimalism-646db:testIamPermissions [none]
+[debug] [2022-10-31T07:01:22.780Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/minimalism-646db:testIamPermissions x-goog-quota-user=projects/minimalism-646db
+[debug] [2022-10-31T07:01:22.780Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/minimalism-646db:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-10-31T07:01:23.752Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/minimalism-646db:testIamPermissions 200
+[debug] [2022-10-31T07:01:23.752Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/minimalism-646db:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-10-31T07:01:23.753Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db [none]
+[debug] [2022-10-31T07:01:24.192Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db 200
+[debug] [2022-10-31T07:01:24.192Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db {"projectId":"minimalism-646db","projectNumber":"1074079050953","displayName":"minimalism","name":"projects/minimalism-646db","resources":{"hostingSite":"minimalism-646db","realtimeDatabaseInstance":"minimalism-646db-default-rtdb","storageBucket":"minimalism-646db.appspot.com","locationId":"asia-southeast1"},"state":"ACTIVE","etag":"1_9023fdff-5799-4577-acd6-80a05cc7a4cd"}
+[info] 
+[info] === Serving from 'C:\Users\Admin\development\projects\minimalism'...
+[info] 
+[debug] [2022-10-31T07:01:24.198Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/minimalism-646db/sites 
+[debug] [2022-10-31T07:01:24.827Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/minimalism-646db/sites 200
+[debug] [2022-10-31T07:01:24.827Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/minimalism-646db/sites {"sites":[{"name":"projects/minimalism-646db/sites/minimalism-646db","defaultUrl":"https://minimalism-646db.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2022-10-31T07:01:24.828Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db/webApps/-/config [none]
+[debug] [2022-10-31T07:01:25.858Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db/webApps/-/config 200
+[debug] [2022-10-31T07:01:25.859Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db/webApps/-/config {"projectId":"minimalism-646db","appId":"1:1074079050953:web:a14543f087a9a1264bb118","databaseURL":"https://minimalism-646db-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"minimalism-646db.appspot.com","locationId":"asia-southeast1","apiKey":"AIzaSyA50FUoZnRImIqoUhUB2N4k4atwrcEvS60","authDomain":"minimalism-646db.firebaseapp.com","messagingSenderId":"1074079050953","measurementId":"G-F9RSJYWPF8"}
+[debug] [2022-10-31T07:01:25.868Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db [none]
+[debug] [2022-10-31T07:01:26.212Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db 200
+[debug] [2022-10-31T07:01:26.213Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/minimalism-646db {"projectId":"minimalism-646db","projectNumber":"1074079050953","displayName":"minimalism","name":"projects/minimalism-646db","resources":{"hostingSite":"minimalism-646db","realtimeDatabaseInstance":"minimalism-646db-default-rtdb","storageBucket":"minimalism-646db.appspot.com","locationId":"asia-southeast1"},"state":"ACTIVE","etag":"1_9023fdff-5799-4577-acd6-80a05cc7a4cd"}
+[info] i  hosting[minimalism-646db]: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] +  hosting[minimalism-646db]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
