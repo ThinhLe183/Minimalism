@@ -50,7 +50,7 @@ export default function Header() {
       </div>
       <div className={`navbar px-8 lg:px-16 sm:px-2 border-b bg-white w-full`}>
         <div className="navbar-start">
-          <Link to={"/"} className="font-mono text-2xl">
+          <Link to={"/"} className="font-barlow text-2xl">
             Minimalism
           </Link>
         </div>

@@ -9,7 +9,7 @@ export default function CountDown() {
 
   useEffect(() => {
     let interval = setInterval(() => {
-      const dueTo = new Date("November 1, 2022 00:00:00 GMT+0700");
+      const dueTo = new Date("November 20, 2022 00:00:00 GMT+0700");
 
       const now = Date.now();
       const timeRemaining = dueTo - now;

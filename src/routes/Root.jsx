@@ -44,7 +44,7 @@ export default function Root() {
     <div className="relative pt-24 font-barlow">
       <ToastContainer
         pauseOnHover={false}
-        autoClose={1500}
+        autoClose={500}
         hideProgressBar={true}
         toastClassName={({ type }) =>
           contextClass[type || "default"] +

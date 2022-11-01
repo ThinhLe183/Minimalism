@@ -6,7 +6,6 @@ import { addProduct, updateProduct } from "../action/cart";
 import { useCartStore, useUserStore } from "../state_management/store";
 import { toastAdded, toastUpdated } from "../action/toastSnip";
 import LoadingLayer from "./LoadingLayer";
-import slugify from "slugify";
 
 export default function ProductCard({ product }) {
   const { user } = useUserStore((state) => state);
