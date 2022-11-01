@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import products from "../product";
-import ProductItem from "./ProductItem";
+import ProductCard from "./ProductCard";
 // For Typescript
 // import SwiperCore from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,7 +8,6 @@ import "swiper/css";
 
 export default function ListProduct({ title }) {
   const swiperRef = useRef();
-
   return (
     <div className="mx-5 md:mx-12 lg:mx-16">
       <div className="flex items-center justify-between mt-24 mb-12 ">
@@ -73,7 +72,7 @@ export default function ListProduct({ title }) {
       >
         {products.map((product) => (
           <SwiperSlide key={product.name}>
-            <ProductItem product={product} />
+            <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

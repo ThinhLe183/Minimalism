@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import BackToTopBtn from "../components/BackToTopBtn";
 import { ToastContainer } from "react-toastify";
-
 import { useCartStore, useUserStore } from "../state_management/store";
 import { Outlet } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
@@ -22,7 +21,6 @@ const contextClass = {
 export default function Root() {
   const { user, setUser } = useUserStore((state) => state);
   const { setCart } = useCartStore((state) => state);
-  console.log(auth);
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -38,7 +36,6 @@ export default function Root() {
       };
     });
   }, [setUser, setCart]);
-
   if (typeof user === "undefined") {
     return <Loading />;
   }
@@ -46,6 +43,7 @@ export default function Root() {
   return (
     <div className="relative pt-24 font-barlow">
       <ToastContainer
+        pauseOnHover={false}
         autoClose={1500}
         hideProgressBar={true}
         toastClassName={({ type }) =>
@@ -56,6 +54,7 @@ export default function Root() {
       <BackToTopBtn />
       <Header />
       <Outlet />
+
       <Footer />
     </div>
   );

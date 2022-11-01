@@ -15,7 +15,7 @@ export default function Header() {
     let prevY = window.scrollY;
     const onScroll = window.addEventListener("scroll", () => {
       const currentY = window.scrollY;
-      if (prevY > currentY || currentY < 200) {
+      if (prevY > currentY || currentY < 150) {
         setIsScrollDown(false);
       } else {
         setIsScrollDown(true);

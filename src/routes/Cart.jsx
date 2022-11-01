@@ -5,6 +5,8 @@ import ShippingForm from "../components/ShippingForm";
 import { useUserStore } from "../state_management/store";
 import CartOrder from "../components/CartOrder";
 import { Navigate } from "react-router-dom";
+
+
 export const loader = () => {
   return axios.get("https://provinces.open-api.vn/api/?depth=3");
 };

@@ -1,4 +1,5 @@
-const products = [
+import slugify from "slugify";
+const data = [
   {
     name: "Áo conton siêu co dãn nhà làm",
     imageSrc:
@@ -56,4 +57,7 @@ const products = [
     stock: 8,
   },
 ];
+const products = data.map((product) => {
+  return { ...product, slug: slugify(product.name) };
+});
 export default products;

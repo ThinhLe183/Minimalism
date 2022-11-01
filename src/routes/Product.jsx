@@ -3,5 +3,5 @@ import { useParams } from "react-router-dom";
 
 export default function Product() {
   const { productId } = useParams();
-  return <div>Product {productId}</div>;
+  return <div className="min-h-screen">Product {productId}</div>;
 }

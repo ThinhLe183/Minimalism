@@ -7,7 +7,7 @@ import Login from "./routes/Login";
 import Index from "./routes/Index";
 import Shop from "./routes/Shop";
 import Cart, { loader as CartLoader } from "./routes/Cart";
-
+import Product from "./routes/Product";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "s",
         element: <Shop />,
+      },
+      {
+        path: "product/:productSlug",
+        element: <Product />,
       },
       {
         path: "cart",

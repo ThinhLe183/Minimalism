@@ -9,12 +9,12 @@ export default function ProfileBtn({ user }) {
     <div className="dropdown dropdown-end ">
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img src={user.photoURL} />
+          <img src={user.photoURL} alt="" />
         </div>
       </label>
       <div className="dropdown-content rounded-2xl bg-base-100  w-64 overflow-hidden divide-y shadow-2xl mt-3">
         <div className=" p-2 flex gap-2 items-center">
-          <img src={user.photoURL} className="w-12 rounded-full" />
+          <img src={user.photoURL} className="w-12 rounded-full" alt="" />
           <div className="text-sm">
             <p className="font-medium">{user.displayName}</p>
             <p>{user.email}</p>
