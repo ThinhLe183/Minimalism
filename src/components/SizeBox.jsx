@@ -1,21 +1,26 @@
 import React from "react";
 import { useState } from "react";
 import { Listbox } from "@headlessui/react";
-import { updateProduct } from "../action/cart";
-import { useCartStore, useUserStore } from "../state_management/store";
+import shallow from "zustand/shallow";
+import { useStore } from "../state_management/store";
 import { RiArrowDropRightLine } from "react-icons/ri";
 import { toastUpdated } from "../action/toastSnip";
 export default function SizeBox({ initSize, product }) {
   const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-  const { user } = useUserStore((state) => state);
-  const { updateProductInCart } = useCartStore((state) => state);
-
+ 
+  const { updateProductInCart } = useStore(
+    (state) => ({
+      updateProductInCart: state.updateProductInCart,
+    }),
+    shallow
+  );
   const [selectedSize, setSelectedSize] = useState(initSize);
 
   const handleSizeChange = async (e) => {
     setSelectedSize(e);
-    await updateProduct(user.uid, product, { size: e });
-    updateProductInCart(product.id, { size: e });
+    // await updateProduct(user.uid, product.id, { size: e });
+    // updateProductInCart(product.id, { size: e });
+    await updateProductInCart(product.id, { size: e });
     toastUpdated();
   };
   return (

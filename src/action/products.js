@@ -15,11 +15,21 @@ import {
 import { db } from "../config/firebase";
 import products from "../product";
 
-export const addExampleProducts = async () => {
+export const addProducts = async () => {
   const productsRef = collection(db, "products");
-  await addDoc(productsRef, products[1]);
-  await addDoc(productsRef, products[2]);
-  await addDoc(productsRef, products[3]);
+  for (let i = 0; i < products.length; i++) {
+    await addDoc(productsRef, products[i]);
+  }
 
   console.log("success");
+};
+export const fetchAllProducts = async () => {
+  const products = [];
+  const productRef = collection(db, "products");
+  const productSnapShot = await getDocs(productRef);
+  productSnapShot.forEach((doc) => {
+    products.unshift({ ...doc.data() });
+  });
+  
+  return products;
 };

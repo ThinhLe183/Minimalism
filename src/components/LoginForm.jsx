@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoadingStore, useUserStore } from "../state_management/store";
+import { useLoadingStore } from "../state_management/store";
 import { FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { auth, googleProvider, facebookProvider } from "../config/firebase";
@@ -10,8 +10,6 @@ export default function LoginForm() {
     setIsLoading(true);
     try {
       await signInWithPopup(auth, Provider);
-      // const { accessToken, displayName, email, photoURL, uid } = user;
-      // setUser({ accessToken, displayName, email, photoURL, uid });
       setIsLoading(false);
     } catch (error) {
       console.log(error.message);

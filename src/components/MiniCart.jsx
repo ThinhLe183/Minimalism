@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import { BsCart } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
-import { useCartStore, useUserStore } from "../state_management/store";
-import { deleteProduct } from "../action/cart";
+import { useStore } from "../state_management/store";
 import { Link } from "react-router-dom";
 import { toastRemoved } from "../action/toastSnip";
 import LoadingLayer from "./LoadingLayer";
+import shallow from "zustand/shallow";
 export default function MiniCart() {
-  const { cart, removeProductFromCart } = useCartStore((state) => state);
-  const { user } = useUserStore((state) => state);
+ 
+  const { cart, removeProductFromCart } = useStore(
+    (state) => ({
+      cart: state.cart,
+      removeProductFromCart: state.removeProductFromCart,
+    }),
+    shallow
+  );
   const [isLoading, setIsLoading] = useState(false);
   const handleRemoveProduct = async (productId) => {
     setIsLoading(true);
     try {
-      await deleteProduct(user.uid, productId);
-      removeProductFromCart(productId);
+      
+      await removeProductFromCart(productId);
       toastRemoved();
     } catch (error) {
       console.log(error);

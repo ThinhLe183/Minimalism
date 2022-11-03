@@ -1,31 +1,43 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { deleteProduct, updateProduct } from "../action/cart";
-import { useCartStore, useUserStore } from "../state_management/store";
+import { useStore } from "../state_management/store";
+import shallow from "zustand/shallow";
 
 export default function QuantityBox({ quantityInit, product }) {
-  const { user } = useUserStore((state) => state);
-  const { updateProductInCart, removeProductFromCart } = useCartStore(
-    (state) => state
+ 
+  const { updateProductInCart, removeProductFromCart } = useStore(
+    (state) => ({
+      updateProductInCart: state.updateProductInCart,
+      removeProductFromCart: state.removeProductFromCart,
+    }),
+    shallow
   );
   const [quantity, setQuantity] = useState(quantityInit);
   const handleQuantityChange = async (action, newQuantity) => {
     try {
       if (action === "increase") {
-        await updateProduct(user.uid, product, { quantity: quantityInit + 1 });
-        updateProductInCart(product.id, { quantity: quantityInit + 1 });
+        // await updateProduct(user.uid, product.id, {
+        //   quantity: quantityInit + 1,
+        // });
+        // updateProductInCart(product.id, { quantity: quantityInit + 1 });
+        await updateProductInCart(product.id, { quantity: quantityInit + 1 });
       }
       if (action === "decrease") {
         if (parseInt(quantity) === 1) {
-          await deleteProduct(user.uid, product.id);
-          removeProductFromCart(product.id);
+          // await deleteProduct(user.uid, product.id);
+          // removeProductFromCart(product.id);
+          await removeProductFromCart(product.id);
         }
-        await updateProduct(user.uid, product, { quantity: quantityInit - 1 });
-        updateProductInCart(product.id, { quantity: quantityInit - 1 });
+        // await updateProduct(user.uid, product.id, {
+        //   quantity: quantityInit - 1,
+        // });
+        // updateProductInCart(product.id, { quantity: quantityInit - 1 });
+        await updateProductInCart(product.id, { quantity: quantityInit - 1 });
       }
       if (action === "change") {
-        await updateProduct(user.uid, product, { quantity: newQuantity });
-        updateProductInCart(product.id, { quantity: newQuantity });
+        // await updateProduct(user.uid, product.id, { quantity: newQuantity });
+        // updateProductInCart(product.id, { quantity: newQuantity });
+        await updateProductInCart(product.id, { quantity: newQuantity });
       }
       setQuantity(product.quantity);
       toast(() => (

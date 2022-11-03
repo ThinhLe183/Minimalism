@@ -2,14 +2,14 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useUserStore } from "../state_management/store";
+import { useStore } from "../state_management/store";
 import Marquee from "react-fast-marquee";
 import MiniCart from "./MiniCart";
 import NotifyBtn from "./NotifyBtn";
 import ProfileBtn from "./ProfileBtn";
 
 export default function Header() {
-  const { user } = useUserStore((state) => state);
+  const user = useStore((state) => state.user);
   const [isScrollDown, setIsScrollDown] = useState();
   useEffect(() => {
     let prevY = window.scrollY;

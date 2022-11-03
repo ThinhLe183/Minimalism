@@ -30,9 +30,9 @@ export const addProduct = async (uid, product) => {
   }
 };
 
-export const updateProduct = async (uid, product, dataUpdate) => {
+export const updateProduct = async (uid, productId, dataUpdate) => {
   try {
-    const productRef = doc(db, `users/${uid}/cart/${product.id}`);
+    const productRef = doc(db, `users/${uid}/cart/${productId}`);
     await updateDoc(productRef, {
       ...dataUpdate,
       created_at: Timestamp.fromMillis(Date.now()).seconds,

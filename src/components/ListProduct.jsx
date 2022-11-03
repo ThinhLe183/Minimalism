@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
-import products from "../product";
 import ProductCard from "./ProductCard";
-// For Typescript
-// import SwiperCore from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-
+import { useStore } from "../state_management/store";
 export default function ListProduct({ title }) {
   const swiperRef = useRef();
+  // const { products } = useProductStore((state) => state);
+  const products = useStore((state) => state.products);
+  console.log(products);
   return (
     <div className="mx-5 md:mx-12 lg:mx-16">
       <div className="flex items-center justify-between mt-24 mb-12 ">

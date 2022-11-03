@@ -1,20 +1,24 @@
-import React from "react";
-import { useCartStore } from "../state_management/store";
-import { deleteProduct } from "../action/cart";
+import React, { useState } from "react";
+import { useStore } from "../state_management/store";
 import { toast } from "react-toastify";
 import QuantityBox from "./QuantityBox";
 import SizeBox from "./SizeBox";
 import { MdClear } from "react-icons/md";
 import Skeleton from "../components/Skeleton";
-import { useState } from "react";
+import shallow from "zustand/shallow";
 export default function CartOrder({ user }) {
-  const { cart, removeProductFromCart } = useCartStore((state) => state);
+  const { cart, removeProductFromCart } = useStore(
+    (state) => ({
+      cart: state.cart,
+      removeProductFromCart: state.removeProductFromCart,
+    }),
+    shallow
+  );
   const [isLoading, setIsLoading] = useState(false);
   const handleRemoveProduct = async (productId) => {
     setIsLoading(true);
     try {
-      await deleteProduct(user.uid, productId);
-      removeProductFromCart(productId);
+      await removeProductFromCart(productId);
       toast(() => (
         <span className="text-sm text-black font-bold">
           Đã xóa sản phẩm khỏi giỏ hàng
@@ -38,7 +42,9 @@ export default function CartOrder({ user }) {
       <div className="divide-y-2 space-y-5">
         <div className="space-y-8">
           {isLoading
-            ? cart.map(() => <Skeleton />)
+            ? cart.map((product) => {
+                return <Skeleton key={product.id} />;
+              })
             : cart.map((product) => (
                 <div key={product.id} className="flex md:gap-5 gap-10">
                   <div className="indicator flex justify-center items-center h-48 w-32 rounded-2xl bg-[#F2F2F2]">

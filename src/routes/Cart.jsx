@@ -2,7 +2,7 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import axios from "axios";
 import ShippingForm from "../components/ShippingForm";
-import { useUserStore } from "../state_management/store";
+import { useStore } from "../state_management/store";
 import CartOrder from "../components/CartOrder";
 import { Navigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export const loader = () => {
 };
 export default function Cart() {
   const provinces = useLoaderData().data.results;
-  const { user } = useUserStore((state) => state);
+  const user = useStore((state) => state.user);
   if (!user) {
     return <Navigate to={"/login"} />;
   }

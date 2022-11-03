@@ -2,14 +2,20 @@ import React from "react";
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Transition } from "@headlessui/react";
-import { addProduct, updateProduct } from "../action/cart";
-import { useCartStore, useUserStore } from "../state_management/store";
+import { useStore } from "../state_management/store";
 import { toastAdded, toastUpdated } from "../action/toastSnip";
 import LoadingLayer from "./LoadingLayer";
-
+import shallow from 'zustand/shallow'
 export default function ProductCard({ product }) {
-  const { user } = useUserStore((state) => state);
-  const { cart, setCart, updateProductInCart } = useCartStore((state) => state);
+
+  const { user, cart, updateProductInCart, addProductToCart } = useStore(
+    (state) => ({
+      user: state.user,
+      cart: state.cart,
+      updateProductInCart: state.updateProductInCart,
+      addProductToCart: state.addProductToCart,
+    }),shallow
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isNeedLogin, setIsNeedLogin] = useState(false);
@@ -30,16 +36,20 @@ export default function ProductCard({ product }) {
         (item) => item.name === data.name && item.size === data.size
       );
       if (productIndexUpdating >= 0) {
-        await updateProduct(user.uid, cart[productIndexUpdating], {
-          quantity: cart[productIndexUpdating].quantity + 1,
-        });
-        updateProductInCart(cart[productIndexUpdating].id, {
+        // await updateProduct(user.uid, cart[productIndexUpdating], {
+        //   quantity: cart[productIndexUpdating].quantity + 1,
+        // });
+        // updateProductInCart(cart[productIndexUpdating].id, {
+        //   quantity: cart[productIndexUpdating].quantity + 1,
+        // });
+        await updateProductInCart(cart[productIndexUpdating].id, {
           quantity: cart[productIndexUpdating].quantity + 1,
         });
         toastUpdated();
       } else {
-        const addedProduct = await addProduct(user.uid, data);
-        setCart([addedProduct, ...cart]);
+        // const addedProduct = await addProduct(user.uid, data);
+        // setCart([addedProduct, ...cart]);
+        await addProductToCart(data);
         toastAdded(data);
       }
     } catch (error) {
