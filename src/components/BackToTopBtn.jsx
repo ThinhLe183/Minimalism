@@ -18,7 +18,7 @@ export default function BackToTopBtn() {
       onClick={() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
-      className={` h-12 w-12 flex justify-center items-center rounded-3xl fixed bottom-5 right-5 z-30 border-none shadow-xl opacity-80 hover:opacity-60 bg-black ${
+      className={` h-12 w-12 flex justify-center items-center rounded-3xl fixed bottom-10 left-8 z-30 border-none shadow-xl opacity-80 hover:opacity-60 bg-black ${
         isShow ? "" : "hidden"
       }`}
     >

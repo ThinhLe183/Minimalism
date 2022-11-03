@@ -6,12 +6,11 @@ import { useUserStore } from "../state_management/store";
 import CartOrder from "../components/CartOrder";
 import { Navigate } from "react-router-dom";
 
-
 export const loader = () => {
-  return axios.get("https://provinces.open-api.vn/api/?depth=3");
+  return axios.get("https://vapi.vnappmob.com/api/province");
 };
 export default function Cart() {
-  const provinces = useLoaderData().data;
+  const provinces = useLoaderData().data.results;
   const { user } = useUserStore((state) => state);
   if (!user) {
     return <Navigate to={"/login"} />;

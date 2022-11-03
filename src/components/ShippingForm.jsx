@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import axios from "axios";
 
 import AddressBox from "./AddressBox";
 import {
@@ -39,21 +39,28 @@ export default function ShippingForm({ provinces }) {
   const [selectedDistrict, setSelectedDistrict] = useState();
   const [selectedWard, setSelectedWard] = useState();
   const [selectedMethod, setSelectedMethod] = useState("COD");
-  const onSelectProvince = (selectedOption) => {
-    const provinceInstance = provinces.find(
-      (province) => province.name === selectedOption
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+
+  const onSelectProvince = async (selectedOption) => {
+    const districtsData = await axios.get(
+      `https://vapi.vnappmob.com/api/province/district/${selectedOption.province_id}`
     );
+    setDistricts(districtsData.data.results);
     setSelectedDistrict(undefined);
-    setSelectedProvince(provinceInstance);
+    setSelectedWard(undefined);
+    setSelectedProvince(selectedOption.province_name);
   };
-  const onSelectDistrict = (selectedOption) => {
-    console.log(selectedProvince.districts);
-
-    const districtInstance = selectedProvince.districts.find(
-      (district) => district.name === selectedOption
+  const onSelectDistrict = async (selectedOption) => {
+    const wardsData = await axios.get(
+      `https://vapi.vnappmob.com/api/province/ward/${selectedOption.district_id}`
     );
-
-    setSelectedDistrict(districtInstance);
+    setWards(wardsData.data.results);
+    setSelectedWard(undefined);
+    setSelectedDistrict(selectedOption.district_name);
+  };
+  const onSelectWard = (selectedOption) => {
+    setSelectedWard(selectedOption.ward_name);
   };
   return (
     <>
@@ -93,84 +100,27 @@ export default function ShippingForm({ provinces }) {
               placeholder="Địa chỉ"
               className="input input-bordered h-10 rounded-2xl focus:outline-none  focus:ring-1 ring-blue-500 placeholder:text-sm md:col-span-3"
             />
-            {/* <select
-              onChange={(e) => onSelectProvince(e)}
-              className="select select-bordered  focus:outline-none rounded-2xl text-sm font-normal   transition-all"
-            >
-              <option value="">Chọn Tỉnh/Thành</option>
-              {provinces.map((province) => (
-                <option
-                  className=""
-                  key={province.code}
-                  value={province.codename}
-                >
-                  {province.name}
-                </option>
-              ))}
-            </select> */}
-            {/* <Listbox
-              onChange={(selectedOption) => onSelectProvince(selectedOption)}
-              as="div"
-              className={"relative"}
-            >
-              <Listbox.Button className=" ring-1 ring-primary ui-open:ring-0 z-10 py-1 pl-4 pr-1 rounded-xl  text-start flex justify-between items-center transition-all ui-open:rounded-b-none ui-open:bg-[#e3e3e3]">
-                <div>
-                  {selectedProvince ? selectedProvince.name : "Chọn Tỉnh/Thành"}
-                </div>
-                <RiArrowDropRightLine className="text-xl transition-all ui-open:rotate-90" />
-              </Listbox.Button>
-              <Listbox.Options className="absolute top-7 shadow-lg  bg-white rounded-b-xl max-h-96 overflow-auto z-10">
-                {provinces.map((province) => (
-                  <Listbox.Option
-                    key={province.code}
-                    value={province.codename}
-                    className="pl-4 hover:bg-[#e3e3e3] cursor-pointer"
-                  >
-                    {province.name}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Listbox> */}
+
             <AddressBox
               placeHolder={
-                selectedProvince ? selectedProvince.name : "Chọn Tỉnh/Thành"
+                selectedProvince ? selectedProvince : "Chọn Tỉnh/Thành"
               }
               options={provinces}
               onSelect={onSelectProvince}
             />
-            {/* <select
-              onChange={(selectedOption) => onSelectDistrict(selectedOption)}
-              className="select select-bordered focus:outline-none rounded-2xl text-sm font-normal"
-            >
-              <option value="">Chọn Quận/Huyện</option>
 
-              {!!selectedProvince &&
-                selectedProvince.districts.map((district) => (
-                  <option key={district.code} value={district.codename}>
-                    {district.name}
-                  </option>
-                ))}
-            </select> */}
             <AddressBox
               placeHolder={
-                selectedDistrict ? selectedDistrict.name : "Chọn Quận/Huyện"
+                selectedDistrict ? selectedDistrict : "Chọn Quận/Huyện"
               }
-              options={selectedProvince ? selectedProvince.districts : []}
+              options={districts}
               onSelect={onSelectDistrict}
             />
-            {/* <select className="select select-bordered focus:outline-none rounded-2xl text-sm font-normal">
-              <option value="">Chọn Phường/Xã</option>
-              {!!selectedDistrict &&
-                selectedDistrict.wards.map((ward) => (
-                  <option value={ward.codename} key={ward.code}>
-                    {ward.name}
-                  </option>
-                ))}
-            </select> */}
+
             <AddressBox
               placeHolder={selectedWard ? selectedWard : "Chọn Phường/Xã"}
-              options={selectedDistrict ? selectedDistrict.wards : []}
-              onSelect={setSelectedWard}
+              options={wards}
+              onSelect={onSelectWard}
             />
             <input
               type="text"

@@ -5,7 +5,7 @@ import { RiArrowDropRightLine } from "react-icons/ri";
 export default function AddressBox({ placeHolder, options, onSelect }) {
   return (
     <Listbox
-      onChange={(selectedOption) => onSelect(selectedOption)}
+      onChange={async (selectedOption) => await onSelect(selectedOption)}
       as="div"
       className={"relative w-full transition-all"}
     >
@@ -17,18 +17,20 @@ export default function AddressBox({ placeHolder, options, onSelect }) {
         {options.length === 0 ? (
           <Listbox.Option
             disabled={true}
-            className="pl-4  cursor-not-allowed w-full py-2"
+            className="pl-4 cursor-not-allowed w-full py-2"
           >
             Không có kết quả
           </Listbox.Option>
         ) : (
           options.map((option) => (
             <Listbox.Option
-              key={option.code}
-              value={option.name}
+              key={
+                option.province_name || option.district_name || option.ward_name
+              }
+              value={option}
               className="pl-4 hover:bg-[#e3e3e3] cursor-pointer w-full"
             >
-              {option.name}
+              {option.province_name || option.district_name || option.ward_name}
             </Listbox.Option>
           ))
         )}
