@@ -12,6 +12,8 @@
 /build
 
 # misc
+
+dataUpload.js
 .env
 .DS_Store
 .env.local

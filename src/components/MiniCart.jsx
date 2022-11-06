@@ -7,7 +7,6 @@ import { toastRemoved } from "../action/toastSnip";
 import LoadingLayer from "./LoadingLayer";
 import shallow from "zustand/shallow";
 export default function MiniCart() {
- 
   const { cart, removeProductFromCart } = useStore(
     (state) => ({
       cart: state.cart,
@@ -19,7 +18,6 @@ export default function MiniCart() {
   const handleRemoveProduct = async (productId) => {
     setIsLoading(true);
     try {
-      
       await removeProductFromCart(productId);
       toastRemoved();
     } catch (error) {
@@ -61,14 +59,14 @@ export default function MiniCart() {
                   <div key={product.id} className="flex items-center gap-5 ">
                     <div className="h-24 w-20 overflow-hidden rounded-xl border border-slate-200">
                       <img
-                        src={product.imageSrc}
+                        src={product.img}
                         alt="product"
                         className="h-full w-full object-cover object-center bg-[#F2F2F2]"
                       />
                     </div>
                     <div className="pr-5 flex-1 relative">
                       <p className="font-semibold text-sm ">{product.name}</p>
-                      <p className="text-sm">
+                      <p className="text-sm capitalize">
                         {product.color} / {product.size}
                       </p>
                       <div className="space-x-2 mt-3">

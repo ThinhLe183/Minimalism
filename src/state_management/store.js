@@ -6,43 +6,7 @@ import {
   updateProduct,
   addProduct,
 } from "../action/cart";
-// export const useProductStore = create((set) => ({
-//   products: [],
-//   fetchProducts: async () => {
-//     console.log("fetched");
-//     const data = await fetchAllProducts();
-//     set({ products: data });
-//   },
-// }));
-
-// export const useUserStore = create((set) => ({
-//   user: undefined,
-//   setUser: (newUser) =>
-//     set({
-//       user: newUser,
-//     }),
-// }));
-
-// export const useCartStore = create((set) => ({
-//   cart: [],
-//   setCart: (newCart) => set({ cart: newCart }),
-//   removeProductFromCart: (productId) =>
-//     set((state) => ({
-//       cart: state.cart.filter((item) => item.id !== productId),
-//     })),
-//   updateProductInCart: (id, { size, quantity }) =>
-//     set((state) => ({
-//       cart: state.cart.map((item) => {
-//         if (item.id === id) {
-//           item.quantity = quantity || item.quantity;
-//           item.size = size || item.size;
-//           return item;
-//         } else {
-//           return item;
-//         }
-//       }),
-//     })),
-// }));
+import { toastAdded, toastUpdated } from "../action/toastSnip";
 
 export const useLoadingStore = create((set) => ({
   isLoading: false,
@@ -76,8 +40,36 @@ export const useStore = create((set, get) => ({
   addProductToCart: async (data) => {
     const user = get().user;
     const cart = get().cart;
-    const addedProduct = await addProduct(user.uid, data);
-    set({ cart: [...cart, addedProduct] });
+    let productIndexUpdating = cart.findIndex(
+      (item) =>
+        item.name === data.name &&
+        item.size === data.size &&
+        item.color === data.color
+    );
+
+    if (productIndexUpdating >= 0) {
+      const updatedProduct = await updateProduct(
+        user.uid,
+        cart[productIndexUpdating].id,
+        {
+          quantity: cart[productIndexUpdating].quantity + data.quantity,
+        }
+      );
+      toastUpdated();
+      set({
+        cart: cart.map((item) => {
+          if (item.id === cart[productIndexUpdating].id) {
+            return updatedProduct;
+          } else {
+            return item;
+          }
+        }),
+      });
+    } else {
+      const addedProduct = await addProduct(user.uid, data);
+      set({ cart: [...cart, addedProduct] });
+      toastAdded(addedProduct);
+    }
   },
   removeProductFromCart: async (productId) => {
     const user = get().user;
@@ -85,22 +77,6 @@ export const useStore = create((set, get) => ({
     await deleteProduct(user.uid, productId);
     set({
       cart: cart,
-    });
-  },
-  updateProductInCart: async (productId, dataUpdate) => {
-    const user = get().user;
-    const cart = get().cart;
-    await updateProduct(user.uid, productId, dataUpdate);
-    set({
-      cart: cart.map((item) => {
-        if (item.id === productId) {
-          item.quantity = dataUpdate.quantity || item.quantity;
-          item.size = dataUpdate.size || item.size;
-          return item;
-        } else {
-          return item;
-        }
-      }),
     });
   },
 }));

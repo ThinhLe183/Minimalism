@@ -7,7 +7,6 @@ export default function ListProduct({ title }) {
   const swiperRef = useRef();
   // const { products } = useProductStore((state) => state);
   const products = useStore((state) => state.products);
-  console.log(products);
   return (
     <div className="mx-5 md:mx-12 lg:mx-16">
       <div className="flex items-center justify-between mt-24 mb-12 ">

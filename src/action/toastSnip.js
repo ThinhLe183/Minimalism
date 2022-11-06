@@ -7,7 +7,7 @@ export const toastAdded = (product) => {
       <div className="flex items-center gap-5 pt-2">
         <div className="h-24 w-20 overflow-hidden rounded-xl border border-slate-200">
           <img
-            src={product.imageSrc}
+            src={product.img}
             alt="product"
             className="h-full w-full object-cover object-center bg-[#F2F2F2]"
           />
@@ -16,7 +16,7 @@ export const toastAdded = (product) => {
           <p className="font-semibold text-sm ">{product.name}</p>
 
           <div className="mt-3">
-            <p className="text-sm">
+            <p className="text-sm capitalize">
               {product.color} / {product.size}
             </p>
             <div className="text-base font-medium ">

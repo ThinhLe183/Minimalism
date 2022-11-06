@@ -52,7 +52,7 @@ export default function CartOrder({ user }) {
                       {product.quantity}
                     </div>
                     <img
-                      src={product.imageSrc}
+                      src={product.img}
                       alt=""
                       className="object-cover object-center scale-110"
                     />
@@ -60,7 +60,7 @@ export default function CartOrder({ user }) {
                   <div className="flex-1 relative my-2 pr-8 flex flex-col justify-between">
                     <div className="space-y-2">
                       <div className=" font-bold">{product.name}</div>
-                      <div>
+                      <div className="capitalize">
                         {product.color} / {product.size}
                       </div>
                     </div>

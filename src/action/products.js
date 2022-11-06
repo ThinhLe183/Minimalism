@@ -13,12 +13,11 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
-import products from "../product";
+import products from "../dataUpload";
 
-export const addProducts = async () => {
-  const productsRef = collection(db, "products");
+export const addProductsToDb = async () => {
   for (let i = 0; i < products.length; i++) {
-    await addDoc(productsRef, products[i]);
+    await setDoc(doc(db, "products", `${products[i].slug}`), products[i]);
   }
 
   console.log("success");
@@ -28,8 +27,19 @@ export const fetchAllProducts = async () => {
   const productRef = collection(db, "products");
   const productSnapShot = await getDocs(productRef);
   productSnapShot.forEach((doc) => {
-    products.unshift({ ...doc.data() });
+    const { name, price, slug, colors } = doc.data();
+    products.unshift({ name, price, slug, colors });
   });
-  
   return products;
+};
+
+export const getProduct = async (productSlug) => {
+  const productRef = doc(db, `products/${productSlug}`);
+
+  const productSnapShot = await getDoc(productRef);
+  if (productSnapShot.exists()) {
+    return productSnapShot.data();
+  } else {
+    throw Error("Product doesn't exist");
+  }
 };

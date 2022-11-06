@@ -37,6 +37,8 @@ export const updateProduct = async (uid, productId, dataUpdate) => {
       ...dataUpdate,
       created_at: Timestamp.fromMillis(Date.now()).seconds,
     });
+    const updatedProduct = await getDoc(productRef);
+    return updatedProduct;
   } catch (error) {
     console.log(error);
   }

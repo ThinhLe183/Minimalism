@@ -28,13 +28,13 @@ export default function Hero() {
       >
         <SwiperSlide>
           <img
-            src="https://media.coolmate.me/cdn-cgi/image/width=1920,quality=100,format=auto/uploads/October2022/Hero-BST-Dong-ppp_21.jpeg"
+            src="https://res.cloudinary.com/dem7o0ijj/image/upload/v1667739754/Minimalism/Hero-BST-Dong-ppp_21_gajfyz.png"
             alt=""
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="https://media.coolmate.me/cdn-cgi/image/width=1920,quality=100,format=auto/uploads/July2022/Banner-Coolmate-Active-opt-1.jpeg"
+            src="https://res.cloudinary.com/dem7o0ijj/image/upload/v1667739821/Minimalism/Banner-Coolmate-Active-opt-1_kzsemb.png"
             alt=""
           />
         </SwiperSlide>

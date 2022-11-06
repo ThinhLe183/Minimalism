@@ -6,12 +6,14 @@ import Root from "./routes/Root";
 import Login from "./routes/Login";
 import Index from "./routes/Index";
 import Shop from "./routes/Shop";
+import Error from "./routes/Error";
 import Cart, { loader as CartLoader } from "./routes/Cart";
-import Product from "./routes/Product";
+import Product, { loader as ProductLoader } from "./routes/Product";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <Error />,
     children: [
       {
         path: "s",
@@ -20,6 +22,7 @@ const router = createBrowserRouter([
       {
         path: "product/:productSlug",
         element: <Product />,
+        loader: ProductLoader,
       },
       {
         path: "cart",
