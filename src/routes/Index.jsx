@@ -9,7 +9,7 @@ export default function Index() {
       <Hero />
       {/* <button onClick={addProductsToDb}>Add</button> */}
       <CountDown />
-      <ListProduct title={"Best Sellers"} />
+      <ListProduct title={"New Products"} />
     </div>
   );
 }

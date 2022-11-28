@@ -5,7 +5,6 @@ import "swiper/css";
 import { useStore } from "../state_management/store";
 export default function ListProduct({ title }) {
   const swiperRef = useRef();
-  // const { products } = useProductStore((state) => state);
   const products = useStore((state) => state.products);
   return (
     <div className="mx-5 md:mx-12 lg:mx-16">

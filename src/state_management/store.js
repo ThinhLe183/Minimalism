@@ -8,6 +8,7 @@ import {
 } from "../action/cart";
 import { toastAdded, toastUpdated } from "../action/toastSnip";
 
+//This store only use for page loading
 export const useLoadingStore = create((set) => ({
   isLoading: false,
   setIsLoading: (newStatus) => set({ isLoading: newStatus }),
@@ -30,6 +31,7 @@ export const useStore = create((set, get) => ({
   //Cart
   fetchCart: async () => {
     const user = get().user;
+    console.log(user);
     if (user) {
       const data = await fetchCart(user.uid);
       set({ cart: data });
@@ -46,7 +48,6 @@ export const useStore = create((set, get) => ({
         item.size === data.size &&
         item.color === data.color
     );
-
     if (productIndexUpdating >= 0) {
       const updatedProduct = await updateProduct(
         user.uid,
@@ -67,9 +68,29 @@ export const useStore = create((set, get) => ({
       });
     } else {
       const addedProduct = await addProduct(user.uid, data);
+
       set({ cart: [...cart, addedProduct] });
       toastAdded(addedProduct);
     }
+  },
+  updateProductInCart: async (product, dataUpdate) => {
+    const user = get().user;
+    const cart = get().cart;
+    const newQuantity = dataUpdate.quantity || product.quantity;
+    const newSize = dataUpdate.size || product.size;
+    const updatedProduct = await updateProduct(user.uid, product.id, {
+      quantity: newQuantity,
+      size: newSize,
+    });
+    set({
+      cart: cart.map((item) => {
+        if (item.id === product.id) {
+          return updatedProduct;
+        } else {
+          return item;
+        }
+      }),
+    });
   },
   removeProductFromCart: async (productId) => {
     const user = get().user;

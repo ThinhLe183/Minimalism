@@ -86,14 +86,14 @@ export default function ProductCard({ product }) {
         <RadioGroup
           value={colorSelected}
           onChange={setColorSelected}
-          className={"flex flex-wrap justify-start pt-1 gap-3"}
+          className={"flex flex-wrap justify-start pt-1 gap-2"}
         >
           {product.colors.map((color) => (
             <RadioGroup.Option
               key={color.colorCode}
               value={color}
               className={
-                "w-1/6 h-6 rounded-lg glass ui-checked:outline outline-2  outline-offset-2 "
+                "w-[10%] h-4 rounded-xl glass ui-checked:outline outline-1  outline-offset-4 "
               }
               style={{ backgroundColor: color.colorCode }}
             ></RadioGroup.Option>

@@ -14,6 +14,7 @@ export default function MiniCart() {
     }),
     shallow
   );
+
   const [isLoading, setIsLoading] = useState(false);
   const handleRemoveProduct = async (productId) => {
     setIsLoading(true);
@@ -26,25 +27,25 @@ export default function MiniCart() {
     setIsLoading(false);
   };
   return (
-    <div className="dropdown dropdown-hover dropdown-end">
-      <div
-        tabIndex={0}
-        className="btn btn-sm btn-ghost btn-circle hover:scale-125 transition-all"
-      >
-        <div className="indicator ">
-          <Link to={"/cart"}>
+    <div className="dropdown sm:dropdown-hover dropdown-end">
+      <Link to={"/cart"}>
+        <div
+          tabIndex={0}
+          className="btn btn-sm btn-ghost btn-circle hover:scale-125 transition-all"
+        >
+          <div className="indicator ">
             <BsCart className="text-xl " />
-          </Link>
-          <span className="badge badge-sm indicator-item rounded-2xl ">
-            {cart.length}
-          </span>
+            <span className="badge badge-sm indicator-item rounded-2xl ">
+              {cart.length}
+            </span>
+          </div>
         </div>
-      </div>
+      </Link>
       <div
         tabIndex={0}
         className=" pt-5 px-2 pb-5 card card-compact dropdown-content rounded-3xl translate-x-5"
       >
-        <div className="relative card-body rounded-3xl bg-base-100 w-[24rem] p-15 shadow-lg ">
+        <div className="relative card-body rounded-3xl bg-base-100 w-[24rem] p-15 shadow-lg hidden sm:block">
           {cart.length > 0 ? (
             <>
               {isLoading && <LoadingLayer size={4} />}
@@ -71,7 +72,7 @@ export default function MiniCart() {
                       </p>
                       <div className="space-x-2 mt-3">
                         <span className="text-lg font-medium mt-1">
-                          {product.price.toLocaleString("de-DE")}
+                          {product.price.toLocaleString("de-DE")}đ
                         </span>
                         <span className="text-sm">x{product.quantity}</span>
                       </div>

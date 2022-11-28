@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLoadingStore } from "../state_management/store";
 import { FaFacebookF } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";

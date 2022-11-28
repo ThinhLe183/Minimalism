@@ -2,10 +2,11 @@ import React from "react";
 import { Listbox } from "@headlessui/react";
 import { RiArrowDropRightLine } from "react-icons/ri";
 
-export default function AddressBox({ placeHolder, options, onSelect }) {
+export default function AddressBox({ name,placeHolder, options, onSelect }) {
   return (
     <Listbox
       onChange={async (selectedOption) => await onSelect(selectedOption)}
+      name = {name}
       as="div"
       className={"relative w-full transition-all"}
     >

@@ -7,7 +7,10 @@ import Login from "./routes/Login";
 import Index from "./routes/Index";
 import Shop from "./routes/Shop";
 import Error from "./routes/Error";
-import Cart, { loader as CartLoader } from "./routes/Cart";
+import Cart, {
+  loader as CartLoader,
+  action as CartAction,
+} from "./routes/Cart";
 import Product, { loader as ProductLoader } from "./routes/Product";
 const router = createBrowserRouter([
   {
@@ -28,6 +31,7 @@ const router = createBrowserRouter([
         path: "cart",
         element: <Cart />,
         loader: CartLoader,
+        action: CartAction,
       },
       { index: true, element: <Index /> },
     ],

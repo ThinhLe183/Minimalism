@@ -10,6 +10,9 @@ import { auth } from "../config/firebase";
 import Loading from "../components/Loading";
 import "react-toastify/dist/ReactToastify.css";
 import shallow from "zustand/shallow";
+import { fetchAllProducts } from "../action/products";
+import { async } from "@firebase/util";
+import { fetchCart } from "../action/cart";
 
 const contextClass = {
   success: "bg-blue-600",
@@ -19,10 +22,17 @@ const contextClass = {
   default: "bg-white",
   dark: "bg-white-600 font-gray-300",
 };
+// export const loader = async () => {
+//   const products = await fetchAllProducts();
+//   const sub = onAuthStateChanged(auth, async (user) => {
+//     if (user) {
+//       const cart = await fetchCart();
+//       return { products, user, cart };
+//     } else return products;
+//   });
+//   console.log(data)
+// };
 export default function Root() {
-  // const { user, setUser } = useUserStore((state) => state);
-  // const { setCart } = useCartStore((state) => state);
-  // const { fetchProducts } = useProductStore((state) => state);
   const { user, fetchProducts, fetchCart, setUser } = useStore(
     (state) => ({
       user: state.user,
@@ -36,26 +46,23 @@ export default function Root() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       await fetchProducts();
-
       if (user) {
         setUser(user);
-        // const userCart = await fetchCart(user.uid);
-        // setCart(userCart);
         await fetchCart();
         return;
       }
       setUser(null);
       await fetchCart();
-      // setCart([]);
+
       return () => {
         unsub();
       };
     });
   }, [setUser, fetchProducts, fetchCart]);
+
   if (typeof user === "undefined") {
     return <Loading />;
   }
-
   return (
     <div className="relative pt-24 font-barlow">
       <ToastContainer

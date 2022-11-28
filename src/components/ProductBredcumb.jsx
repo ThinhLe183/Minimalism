@@ -6,7 +6,7 @@ export default function ProductBredcumb({ name, color }) {
     <div className="text-xs breadcrumbs pb-5">
       <ul className="">
         <li className="opacity-80">
-          <Link>Home</Link>
+          <Link to={"../../"}>Home</Link>
         </li>
         <li className="opacity-80">
           <Link>Shop</Link>

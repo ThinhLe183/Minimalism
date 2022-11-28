@@ -38,7 +38,11 @@ export const updateProduct = async (uid, productId, dataUpdate) => {
       created_at: Timestamp.fromMillis(Date.now()).seconds,
     });
     const updatedProduct = await getDoc(productRef);
-    return updatedProduct;
+    if (updatedProduct.exists()) {
+      return { ...updatedProduct.data(), id: productId };
+    } else {
+      throw Error("Product isn't exist");
+    }
   } catch (error) {
     console.log(error);
   }

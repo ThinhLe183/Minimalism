@@ -6,7 +6,7 @@ import SizeBox from "./SizeBox";
 import { MdClear } from "react-icons/md";
 import Skeleton from "../components/Skeleton";
 import shallow from "zustand/shallow";
-export default function CartOrder({ user }) {
+export default function CartOrder() {
   const { cart, removeProductFromCart } = useStore(
     (state) => ({
       cart: state.cart,
@@ -47,14 +47,14 @@ export default function CartOrder({ user }) {
               })
             : cart.map((product) => (
                 <div key={product.id} className="flex md:gap-5 gap-10">
-                  <div className="indicator flex justify-center items-center h-48 w-32 rounded-2xl bg-[#F2F2F2]">
+                  <div className="indicator flex justify-center items-center h-52   ">
                     <div className="indicator-item h-6 w-6 rounded-full bg-primary text-white flex justify-center items-center text-xs font-bold">
                       {product.quantity}
                     </div>
                     <img
                       src={product.img}
                       alt=""
-                      className="object-cover object-center scale-110"
+                      className="object-cover object-center w-full h-full rounded-2xl"
                     />
                   </div>
                   <div className="flex-1 relative my-2 pr-8 flex flex-col justify-between">
@@ -65,9 +65,13 @@ export default function CartOrder({ user }) {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <SizeBox initSize={product.size} product={product} />
+                      <SizeBox
+                        initSize={product.size}
+                        product={product}
+                        setIsLoading={setIsLoading}
+                      />
                       <QuantityBox
-                        quantityInit={product.quantity}
+                        setIsLoading={setIsLoading}
                         product={product}
                       />
                     </div>

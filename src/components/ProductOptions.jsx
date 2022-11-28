@@ -102,8 +102,7 @@ export default function ProductOptions({ product, colorPicked }) {
             ))}
           </div>
         </div>
-        {/* <input type="radio" name="size" className="radio" value={1} />
-          <input type="radio" name="size" className="radio" value={2} /> */}
+
         <div>
           <p className="mb-3">
             Chọn size: <span className="font-semibold">{sizeSelected}</span>
